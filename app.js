@@ -6,7 +6,11 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes');
 
-mongoose.connect('mongodb://localhost:27017/crud', { useNewUrlParser: true, useUnifiedTopology: true })
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => 'You are now connected to Mongo!')
     .catch(err => console.error('Something went wrong', err))
 
